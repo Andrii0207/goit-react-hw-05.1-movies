@@ -11,6 +11,15 @@ export const getTrendingMovies = () => {
   });
 };
 
+export const getMovieByName = name => {
+  return axios(`search/movie`, {
+    params: {
+      api_key: API_KEY,
+      query: name,
+    },
+  });
+};
+
 export const getMovieDetailById = id => {
   return axios(`movie/${id}`, {
     params: {
