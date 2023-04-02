@@ -19,4 +19,12 @@ export const getMovieDetailById = id => {
   });
 };
 
+export const getMovieCast = id => {
+  return axios(`movie/${id}/credits`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+};
+
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
