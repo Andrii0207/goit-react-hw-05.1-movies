@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useParams } from 'react-router-dom';
-import { Cast } from 'components/Cast/Cast';
-import { Reviews } from 'components/Reviews/Reviews';
+// import { Cast } from 'components/Cast/Cast';
+// import { Reviews } from 'components/Reviews/Reviews';
 import { getMovieDetailById } from '../../service/moviesAPI';
 import defaultImage from '../../service/defaultImage.png';
 
@@ -15,8 +15,6 @@ export const MovieDetails = () => {
   useEffect(() => {
     getMovieDetailById(MovieId).then(({ data }) => setMovie(data));
   }, [MovieId]);
-
-  //   console.log(movie);
 
   const { poster_path, title, release_date, original_title, overview, genres } =
     movie;

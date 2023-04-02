@@ -5,15 +5,18 @@ import defaultImage from '../../service/defaultImage.png';
 
 export const Cast = () => {
   const [cast, setCast] = useState([]);
+  const [error, setError] = useState(null);
   const { id } = useParams();
   const MovieId = Number(id.slice(1, id.length));
-  console.log('Cast id', MovieId);
+  //   console.log('Cast id', MovieId);
 
   useEffect(() => {
-    getMovieCast(MovieId).then(resp => setCast(resp.data.cast));
+    getMovieCast(MovieId)
+      .then(resp => setCast(resp.data.cast))
+      .catch(err => setError(err));
   }, [MovieId]);
 
-  console.log('Cast', cast);
+  //   console.log('Cast', cast);
 
   const castImageURL = 'https://image.tmdb.org/t/p/w500';
 
@@ -33,7 +36,9 @@ export const Cast = () => {
               alt={original_name}
               style={{ width: '200px' }}
             />
-            <p>{original_name}</p>
+            <b>
+              <p>{original_name}</p>
+            </b>
             <p>Character: {character}</p>
           </li>
         ))}

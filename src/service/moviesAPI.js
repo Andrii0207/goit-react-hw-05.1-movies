@@ -27,4 +27,10 @@ export const getMovieCast = id => {
   });
 };
 
-// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+export const getMovieReviews = id => {
+  return axios(`movie/${id}/reviews`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+};
