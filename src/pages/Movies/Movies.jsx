@@ -23,6 +23,7 @@ const Movies = () => {
     }
 
     getMovieByName(data).then(resp => console.log(resp.data));
+    evt.target.reset();
   };
 
   //   useEffect(() => {
@@ -33,18 +34,16 @@ const Movies = () => {
   //   }, [query]);
 
   return (
-    <div>
+    <form onSubmit={searchMovieByName}>
       <input
         type="text"
         value={query}
         placeholder="Enter movie name"
         onChange={updateQueryString}
       />
-      <button type="submit" onChange={searchMovieByName}>
-        Search
-      </button>
+      <button type="submit">Search</button>
       Movies page
-    </div>
+    </form>
   );
 };
 
