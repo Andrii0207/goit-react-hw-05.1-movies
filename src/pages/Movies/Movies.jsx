@@ -1,50 +1,23 @@
-import { useEffect } from 'react';
+import { Search } from 'components/Search/Search';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getMovieByName } from 'service/moviesAPI';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') ?? '';
+  const [movie, setMovie] = useState([]);
 
-  const updateQueryString = evt => {
-    if (evt.target.value === '') {
-      return setSearchParams({});
-    }
-    setSearchParams({ query: evt.target.value });
+  const getMovieValueName = value => {
+    setSearchParams(value !== '' ? { query: value } : {});
   };
 
-  const searchMovieByName = evt => {
-    evt.preventDefault();
-    const data = evt.target.value;
-    console.log(data);
+  const query = searchParams.get('query');
 
-    if (!data) {
-      return alert('Please enter movie name');
-    }
+  useEffect(() => {
+    getMovieByName(query).then(resp => console.log(resp.data.results));
+  }, [query]);
 
-    getMovieByName(data).then(resp => console.log(resp.data));
-    evt.target.reset();
-  };
-
-  //   useEffect(() => {
-  //     if (!query) {
-  //       return alert('Please enter movie name');
-  //     }
-  //     getMovieByName(query).then(resp => console.log(resp.data));
-  //   }, [query]);
-
-  return (
-    <form onSubmit={searchMovieByName}>
-      <input
-        type="text"
-        value={query}
-        placeholder="Enter movie name"
-        onChange={updateQueryString}
-      />
-      <button type="submit">Search</button>
-      Movies page
-    </form>
-  );
+  return <Search onChange={getMovieValueName} />;
 };
 
 export default Movies;
