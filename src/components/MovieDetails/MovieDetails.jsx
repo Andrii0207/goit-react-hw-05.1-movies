@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
-// import { Cast } from 'components/Cast/Cast';
-// import { Reviews } from 'components/Reviews/Reviews';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { getMovieDetailById } from '../../service/moviesAPI';
 import defaultImage from '../../service/defaultImage.png';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState({});
+
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   const { id } = useParams();
   const MovieId = id.slice(1, id.length);
-  //   console.log(MovieId);
 
   useEffect(() => {
     getMovieDetailById(MovieId).then(({ data }) => setMovie(data));
@@ -20,8 +26,13 @@ export const MovieDetails = () => {
     movie;
   const baseImagePathURL = 'https://image.tmdb.org/t/p/w500/';
 
+  if (!movie) {
+    return null;
+  }
+
   return (
     <>
+      <Link to={backLinkLocationRef.current}>Go back</Link>
       <div>
         <img
           src={poster_path ? baseImagePathURL + `${poster_path}` : defaultImage}
@@ -50,13 +61,17 @@ export const MovieDetails = () => {
       <b>
         <p>Additional information</p>
       </b>
-      <NavLink to="cast">
+      <NavLink to="cast" state={{ from: location }}>
         <p>Cast</p>
       </NavLink>
-      <NavLink to="reviews">
+      <NavLink to="reviews" state={{ from: location }}>
         <p>Reviews</p>
       </NavLink>
-      <Outlet />
+      <Suspense fallback={<div>Loading... wait please</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };
+
+export default MovieDetails;

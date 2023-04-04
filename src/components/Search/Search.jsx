@@ -21,7 +21,6 @@ export const Search = ({ onChange }) => {
         onChange={handleChange}
       />
       <button type="submit">Search</button>
-      Movies page
     </form>
   );
 };

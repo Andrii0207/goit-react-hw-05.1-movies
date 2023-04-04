@@ -1,10 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
+import defaultImage from '../../service/defaultImage.png';
 
 export const MoviesList = ({ movies }) => {
   const location = useLocation();
-  console.log('location', location);
-  console.log(movies);
 
+  if (!movies) {
+    return null;
+  }
   const baseImageURL = 'https://image.tmdb.org/t/p/w500';
 
   return (
@@ -13,7 +15,7 @@ export const MoviesList = ({ movies }) => {
         <li key={id}>
           <Link to={`/movies/:${id}`} state={{ from: location }}>
             <img
-              src={baseImageURL + `${poster_path}`}
+              src={poster_path ? baseImageURL + `${poster_path}` : defaultImage}
               alt={title}
               style={{ width: '200px' }}
             />

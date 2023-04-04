@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getMovieReviews } from 'service/moviesAPI';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const params = useParams();
@@ -14,8 +14,6 @@ export const Reviews = () => {
       .then(resp => setReviews(resp.data.results))
       .catch(err => setError(err.message));
   }, [MovieId]);
-
-  console.log(reviews);
 
   if (!reviews) {
     return null;
@@ -34,3 +32,5 @@ export const Reviews = () => {
     </ul>
   );
 };
+
+export default Reviews;

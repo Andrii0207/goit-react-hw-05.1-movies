@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getMovieCast } from '../../service/moviesAPI';
 import defaultImage from '../../service/defaultImage.png';
 
-export const Cast = () => {
+const Cast = () => {
   const [cast, setCast] = useState([]);
   const [error, setError] = useState(null);
+
   const { id } = useParams();
   const MovieId = Number(id.slice(1, id.length));
-  //   console.log('Cast id', MovieId);
 
   useEffect(() => {
     getMovieCast(MovieId)
       .then(resp => setCast(resp.data.cast))
       .catch(err => setError(err));
   }, [MovieId]);
-
-  //   console.log('Cast', cast);
 
   const castImageURL = 'https://image.tmdb.org/t/p/w500';
 
@@ -46,3 +44,5 @@ export const Cast = () => {
     </div>
   );
 };
+
+export default Cast;
