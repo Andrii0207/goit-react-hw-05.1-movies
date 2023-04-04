@@ -6,8 +6,6 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
 
-  //   console.log(movies);
-
   useEffect(() => {
     getTrendingMovies()
       .then(({ data }) => setMovies(data.results))

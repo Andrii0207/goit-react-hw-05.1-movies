@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getMovieReviews } from 'service/moviesAPI';
 
 const Reviews = () => {
@@ -15,7 +15,7 @@ const Reviews = () => {
       .catch(err => setError(err.message));
   }, [MovieId]);
 
-  if (!reviews) {
+  if (!reviews && !error) {
     return null;
   }
 

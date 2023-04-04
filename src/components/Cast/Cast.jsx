@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getMovieCast } from '../../service/moviesAPI';
 import defaultImage from '../../service/defaultImage.png';
 
@@ -18,7 +18,7 @@ const Cast = () => {
 
   const castImageURL = 'https://image.tmdb.org/t/p/w500';
 
-  if (!cast) {
+  if (!cast && !error) {
     return null;
   }
 
