@@ -17,7 +17,11 @@ const Movies = () => {
     getMovieByName(query).then(resp => console.log(resp.data.results));
   }, [query]);
 
-  return <Search onChange={getMovieValueName} />;
+  return (
+    <div>
+      <Search onChange={getMovieValueName} />
+    </div>
+  );
 };
 
 export default Movies;
